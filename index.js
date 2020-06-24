@@ -11,14 +11,21 @@ app.get("/product-list", (req, res) => {
   res.json(JSON.parse(fileContents));
 });
 
-app.put("/edit-product/:id", (req, res) => {
+app.post("/edit-product/:id", (req, res) => {
   let fileContents = fs.readFileSync("data.txt", "utf-8");
   fileContents = JSON.parse(fileContents);
 
-  const foundIndex = fileContents.findIndex(
-    (item) => item.product_id === req.params.id
+  console.log(req.body, req.params.id);
+  console.log(fileContents);
+  const foundItem = fileContents.find(
+    (item) => item.product_id === parseInt(req.params.id)
   );
-  fileContents[foundIndex] = req.body;
+
+  foundItem["inv_data"][
+    foundItem["inv_data"].length - 1
+  ].inventoryVal = parseInt(req.body.newVal);
+  console.log(foundItem["inv_data"]);
+  // fileContents[foundIndex] = req.body;
   fs.writeFileSync("data.txt", JSON.stringify(fileContents));
   return res.json(fileContents);
 });
