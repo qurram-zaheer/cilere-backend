@@ -4,8 +4,6 @@ const fs = require("fs");
 const app = express();
 app.use(express.json());
 
-const PORT = 5000;
-
 app.get("/product-list", (req, res) => {
   const fileContents = fs.readFileSync("data.txt", "utf-8");
   res.json(JSON.parse(fileContents));
@@ -30,4 +28,6 @@ app.post("/edit-product/:id", (req, res) => {
   return res.json(fileContents);
 });
 
-app.listen(PORT, () => console.log("Server listening on PORT " + PORT));
+app.listen(process.env.PORT || 5000, () =>
+  console.log("Server listening on PORT " + PORT)
+);
