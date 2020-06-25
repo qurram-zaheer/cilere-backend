@@ -28,6 +28,10 @@ app.post("/edit-product/:id", (req, res) => {
   return res.json(fileContents);
 });
 
+app.get("/", (req, res) => {
+  res.send("Server running");
+});
+
 app.listen(process.env.PORT || 5000, () =>
   console.log("Server listening on PORT " + PORT)
 );
