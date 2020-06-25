@@ -1,8 +1,11 @@
 const express = require("express");
 const fs = require("fs");
 
+const cors = require("cors");
+
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/product-list", (req, res) => {
   const fileContents = fs.readFileSync("data.txt", "utf-8");
